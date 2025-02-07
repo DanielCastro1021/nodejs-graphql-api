@@ -1,8 +1,9 @@
 import { ApolloServer } from 'apollo-server-express';
+import { port } from './config/config.server.js';
 import express from 'express';
 import typeDefs from './graphql/schema.js';
 import resolvers from './graphql/resolvers.js';
-import port from './config/config.server.js';
+import clientRoute from './routes/client.router.js';
 
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
@@ -11,6 +12,10 @@ await server.start();
 
 server.applyMiddleware({ app });
 
+// Serve the HTML page and static files
+app.use(express.static("./server/static"));
+app.use(clientRoute);
+
 app.listen(port, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+    console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
 );

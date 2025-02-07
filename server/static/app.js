@@ -14,6 +14,7 @@ async function fetchGreeting() {
 fetchGreeting().then(greeting => {
     const title = document.createElement('h1');
     title.textContent = greeting;
-    document.body.append(title);
+    const centerDiv = document.querySelector('.center');
+    centerDiv.append(title);
 }
 );
