@@ -3,6 +3,8 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    image: nodejs_graphql_api_image:latest
+    container_name: nodejs_graphql_api
     ports:
       - "4000:4000"
     volumes:
