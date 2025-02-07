@@ -8,14 +8,19 @@ import clientRoute from './routes/client.router.js';
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
 
+// Start the Apollo Server
 await server.start();
 
+// Apply the Apollo GraphQL middleware and set the path to /graphql
 server.applyMiddleware({ app });
 
 // Serve the HTML page and static files
 app.use(express.static("./server/static"));
+
+// Serve the client route
 app.use(clientRoute);
 
+// Start the server
 app.listen(port, () =>
     console.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
